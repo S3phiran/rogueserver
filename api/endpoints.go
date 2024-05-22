@@ -607,8 +607,8 @@ func handleUpdateAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	trainerId := data.System.TrainerId
-	secretId := data.System.SecretId
+	// trainerId := data.System.TrainerId
+	// secretId := data.System.SecretId
 
 	storedTrainerId, storedSecretId, err := db.FetchTrainerIds(uuid)
 	if err != nil {
@@ -616,17 +616,22 @@ func handleUpdateAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if storedTrainerId > 0 || storedSecretId > 0 {
-		if trainerId != storedTrainerId || secretId != storedSecretId {
-			httpError(w, r, fmt.Errorf("session out of date: stored trainer or secret ID does not match"), http.StatusBadRequest)
-			return
-		}
-	} else {
-		if err = db.UpdateTrainerIds(trainerId, secretId, uuid); err != nil {
-			httpError(w, r, err, http.StatusInternalServerError)
-			return
-		}
+	if err = db.UpdateTrainerIds(storedTrainerId, storedSecretId, uuid); err != nil {
+		httpError(w, r, err, http.StatusInternalServerError)
+		return
 	}
+
+	// if storedTrainerId > 0 || storedSecretId > 0 {
+	// 	if trainerId != storedTrainerId || secretId != storedSecretId {
+	// 		httpError(w, r, fmt.Errorf("session out of date: stored trainer or secret ID does not match"), http.StatusBadRequest)
+	// 		return
+	// 	}
+	// } else {
+	// 	if err = db.UpdateTrainerIds(trainerId, secretId, uuid); err != nil {
+	// 		httpError(w, r, err, http.StatusInternalServerError)
+	// 		return
+	// 	}
+	// }
 
 	err = savedata.Update(uuid, data.SessionSlotId, data.Session)
 	if err != nil {
