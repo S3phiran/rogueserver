@@ -1,7 +1,7 @@
 services:
   server:
     command: --debug --dbaddr db --dbuser pokerogue --dbpass pokerogue --dbname pokeroguedb
-    image: ghcr.io/S3phiran/rogueserver:master
+    image: ghcr.io/s3phiran/rogueserver:master
     restart: unless-stopped
     depends_on:
       db:
