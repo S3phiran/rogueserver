@@ -509,7 +509,7 @@ func legacyHandleSaveData(w http.ResponseWriter, r *http.Request) {
 			trainerId = save.(defs.SystemSaveData).TrainerId
 			secretId = save.(defs.SystemSaveData).SecretId
 		}
-		fmt.Print(trainerId, secretId)
+		fmt.Println(trainerId, secretId)
 
 		storedTrainerId, storedSecretId, err := db.FetchTrainerIds(uuid)
 		if err != nil {
