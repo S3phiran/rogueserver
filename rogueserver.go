@@ -20,7 +20,6 @@ package main
 import (
 	"encoding/gob"
 	"flag"
-	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -31,7 +30,7 @@ import (
 )
 
 func main() {
-	fmt.Println("RogueServer starting...")
+	log.Println("RogueServer starting...")
 	// flag stuff
 	debug := flag.Bool("debug", false, "use debug mode")
 

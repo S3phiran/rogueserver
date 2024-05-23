@@ -22,6 +22,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -509,7 +510,7 @@ func legacyHandleSaveData(w http.ResponseWriter, r *http.Request) {
 			trainerId = save.(defs.SystemSaveData).TrainerId
 			secretId = save.(defs.SystemSaveData).SecretId
 		}
-		fmt.Println(trainerId, secretId)
+		log.Println(trainerId, secretId)
 
 		storedTrainerId, storedSecretId, err := db.FetchTrainerIds(uuid)
 		if err != nil {
